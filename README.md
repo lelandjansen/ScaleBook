@@ -1,2 +1,2 @@
 # ScaleBook
-Musical scale resource website
+Musical scale resource website by Leland Jansen.
