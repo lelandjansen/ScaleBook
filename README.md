@@ -22,10 +22,10 @@ A tone is equivalent to two semitones, or the distance between three adjacent no
 - et cetera
 
 #### Scales
-A musical scale is a pattern notes. For example, the major (ionian) scale follows the semitone pattern
+A musical scale is a pattern notes. For example, the major (ionian) scale follows the semitone pattern:
 2 | 2 | 1 | 2 | 2 | 2 | 1
 
-The scale C major starts on the note C and follows the major scale pattern. Thus, the notes of the C major:
+The scale C major starts on the note C and follows the major scale pattern. Thus, the notes of the C major are:
 C | D | E | F | G | A | B | (C)
 
 ScaleBook knows the following scales:
@@ -43,4 +43,4 @@ ScaleBook knows the following scales:
 - Pentatonic
 - Whole tone
 
-Songs and musical compositions are usually built upon a scale, meaning the notes in that piece are based on the notes in the scale. The two most common scales are the major and minor scales, often described as sounding "happy" and "sad", respectively.
+Songs and other musical compositions are usually built upon a scale, meaning the notes in that piece are based on the notes in the scale. The two most common scales are the major and minor scales, often described as sounding "happy" and "sad", respectively.
