@@ -12,7 +12,7 @@ Below is an image of a piano keyboard with the corresponding note names.
 A semitone is simply the distance between two adjacent notes (white or black). For example, one semitone is the distance between the notes:
 - C and C-sharp
 - E and F
-- and G and A-flat
+- G and A-flat
 - et cetera
 
 A tone is equivalent to two semitones, or the distance between three adjacent notes. For example, one tone is the distance between the notes:
