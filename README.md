@@ -9,7 +9,7 @@ Before diving into the algorithms, it is important to know a bit of music theory
 #### Piano Keyboard
 Two octaves of a piano keyboard. One octave is comprised of 12 keys. A full piano keyboard has 88 keys.
 
-![Piano keyboard](keyboard.svg)
+![Piano keyboard](https://raw.githubusercontent.com/lelandjansen/ScaleBook/master/keyboard.jpg)
 
 #### Semitones
 A semitone is simply the distance between two adjacent notes (white or black). For example, one semitone is the distance between the notes:
