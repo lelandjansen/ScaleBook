@@ -11,24 +11,29 @@ Scales
 - e double sharp triple flat minor
 - G sharp major (gives enharmonically equivalent A-flat major because G-shrap minor cannot be written with a standard key signature)
 - OMG just show me a flat miner scale on e (correctly interprets as E-flat minor, not A-flat minor)
+
 Key signatures
 - What's the key signature of C-flat major?
 - d min ks
 - Which modes have a key of 3 flats?
 - No sharps or flats
 - go to the mixolydian scale with 4 flats
+
 Check
 - Is F minor's key signature 1 flat?
 - does a# min not have 7 sharps
 - c minor has no flats and no sharps, right?
+
 Relative scales
 - What is the major of G minor?
 - cb maj rel locrian
 - show me all the scales relative to d sharp dorian
+
 Random scale
 - Generate a random scale
 - eb random
 - Gimme whatever whole tone scale you want
+
 Fun
 - Richter scale
 - Decibel scale
@@ -41,7 +46,7 @@ Before diving into the algorithms, it is important to know a bit of music theory
 
 #### Piano Keyboard
 Two octaves of a piano keyboard are shown below, each octave being comprised of 12 keys. A full piano keyboard has 88 keys.
-![Piano keyboard](keyboard.svg)
+![Piano keyboard](keyboard.jpg)
 
 #### Semitones
 A semitone is simply the distance between two adjacent notes (white or black). For example, one semitone is the distance between the notes:
