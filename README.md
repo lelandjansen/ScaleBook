@@ -60,7 +60,7 @@ G | G | D | D | E | E | D
 Et cetera.
 
 One will notice that the semitone distance between notes in both C major and G major are identical.
-
+ 
 The two most common scales are the major and minor scales, often described as sounding "happy" and "sad", respectively.
 
 
