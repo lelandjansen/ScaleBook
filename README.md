@@ -8,6 +8,7 @@ Before diving into the algorithms, it is important to know a bit of music theory
 
 #### Piano Keyboard
 Two octaves of a piano keyboard. One octave is comprised of 12 keys. A full piano keyboard has 88 keys.
+
 ![Piano keyboard](keyboard.svg)
 
 #### Semitones
