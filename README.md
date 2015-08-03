@@ -46,7 +46,7 @@ Before diving into the algorithms, it is important to know a bit of music theory
 Click [here](#algorithms) to skip the theory and go straight to the algorithms.
 
 #### Piano Keyboard
-Two octaves of a piano keyboard are shown below. Each octave is comprised of 12 keys, seven white notes and five black nots. A full piano keyboard has 88 keys.
+Two octaves of a piano keyboard are shown below, with note names written on the keys of the first octave. Each octave is comprised of 12 keys, seven white notes and five black nots. A full piano keyboard has 88 keys.
 ![Piano keyboard](keyboard.jpg)
 
 #### Enharmonics
@@ -107,11 +107,11 @@ Et cetera.
 
 One will notice that the semitone distance between notes in both C major and G major are identical. Therefore, the song will still sound similar despite starting on a different note.
 
-The two most common scales are the major and minor scales, often described as sounding "happy" and "sad", respectively.
+The two most common scales are the major and minor scales, sometimes described as sounding "happy" and "sad", respectively.
 
 #### Key signatures
 
-When writing and reading music, it is often laborious to have each accidental (i.e. sharp or flat) written before each note, especially when written in a key signature with may accidentals. Therefore, music is often written using a key signature - a series of sharps or flats (usually) placed on the music staff right after the clef. The notes on which the key signature accidentals are placed automatically raise/lower that one by one semitone.
+When writing and reading music, it is often laborious to have each accidental (i.e. sharp or flat) written before each note, especially when written in a key signature with may accidentals. Therefore, music is often written using a key signature - a series of sharps or flats that are (usually) placed on the music staff right after the clef. The notes on which the key signature accidentals are placed automatically raise/lower that one by one semitone.
 
 For example, the scale E-flat major (notes: E-flat | F | G | A-flat | B-flat | C | D) has a key signature of three flats. Therefore, each time the notes B, E, or A appear, they are to be lowered by one semitone.
 
