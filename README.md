@@ -25,14 +25,14 @@ Check
 - c minor has no flats and no sharps, right?
 
 Relative scales
-- What is the major of G minor?
+- What is the relative major of G minor?
 - cb maj rel locrian
 - show me all the scales relative to d sharp dorian
 
 Random scale
 - Generate a random scale
 - eb random
-- Gimme whatever whole tone scale you want
+- Gimme whatever whole tone scale u want
 
 Fun
 - Richter scale
@@ -43,7 +43,7 @@ Fun
 ## Introduction and music theory
 Before diving into the algorithms, it is important to know a bit of music theory.
 
-Click [here](#algorithms) to skip the theory.
+Click [here](#algorithms) to skip the theory and go straight to the algorithms.
 
 #### Piano Keyboard
 Two octaves of a piano keyboard are shown below. Each octave is comprised of 12 keys, seven white notes and five black nots. A full piano keyboard has 88 keys.
@@ -153,14 +153,12 @@ To determine a major scale's key signature, one can use the Circle of Fifths. Be
 
 1. Start on the note C;
 2. Go up seven semitones;
-3. Repeat step 2 until one lands on the desired note;
+3. Repeat step 2 (up to seven times) until one lands on the desired note;
 4. The number of times step 2 was repeated gives the number of sharps in the key signature.
- 
-It should be noted step 2 may be repeated up to seven times.
 
 For example, to find the key signature of D major start on the note C and go up seven semitones to G, then up another seven semitones to D. Since D is the desired note and seven semitones were added twice, the key signature of D major is 2 sharps.
 
-A similar processs may be used to determine the number of flats by instead going down seven semitones (starting on the note C).
+A similar process may be used to determine the number of flats by instead going down seven semitones (starting on the note C).
 
 Any scale's key signature can be found by first finding its relative major.
 
@@ -168,7 +166,7 @@ Any scale's key signature can be found by first finding its relative major.
 ## Algorithms
 Below is an outline of ScaleBook's major algorithms.
 
-### Reverse lookup
+### Determine note, scale, or key signature
 (modeConversion array) determineNote, determineScale, determineKeySignature, checkInput
 
 #### (modeConversion array)
