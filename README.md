@@ -39,12 +39,11 @@ Fun
 - Decibel scale
 - On a scale from 1 to 10...
 
-## Algorithms explained
 
-### Introduction
+## Introduction
 Before diving into the algorithms, it is important to know a bit of music theory.
 
-Click [here](keyboard.jpg) to skip the theory.
+Click [here](#Algorithms) to skip the theory.
 
 #### Piano Keyboard
 Two octaves of a piano keyboard are shown below. Each octave is comprised of 12 keys, seven white notes and five black nots. A full piano keyboard has 88 keys.
@@ -122,7 +121,26 @@ Typical key signatures can have up to seven sharps or seven flats.
 Two scales are said to be relative if they share the same same notes and thus the same key signature. For example, B minor is relative to D major.
 
 D major: D | E | F-sharp | G | A | B | C-sharp
+
 B minor: B | C-sharp | D | E | F-sharp | G | A
 
 
-### Create scale
+## Algorithms
+Below are ScaleBook's major algorithms.
+
+### Reverse lookup
+(modeConversion array) determineNote, determineScale, determineKeySignature, checkInput
+
+#### (modeConversion array)
+#### determineNote
+#### determineScale
+#### determineKeySignature
+#### checkInput
+
+### parseUserInput
+(scaleScore array) stringScore, sumScaleScore, zeroScaleScore, getHighestValue
+
+#### (scaleScore array) stringScore
+#### sumScaleScore
+#### zeroScaleScore
+#### getHighestValue
