@@ -2,7 +2,7 @@
 Musical scale resource website by Leland Jansen.
 
 ## Natural language processing
-ScaleBook understands natural language meaning you can ask it a query in your own words.
+ScaleBook understands natural language meaning you can ask it a query in your own words. The [parseUserInput algorithm](#parseuserinput) is responsible for interpreting the user's input and is detailed in the [algorithms section](#algorithms).
 
 ### Some things you can ask ScaleBook
 Scales
@@ -40,10 +40,10 @@ Fun
 - On a scale from 1 to 10...
 
 
-## Introduction
+## Introduction and music theory
 Before diving into the algorithms, it is important to know a bit of music theory.
 
-Click [here](#Algorithms) to skip the theory.
+Click [here](#algorithms) to skip the theory.
 
 #### Piano Keyboard
 Two octaves of a piano keyboard are shown below. Each octave is comprised of 12 keys, seven white notes and five black nots. A full piano keyboard has 88 keys.
@@ -117,16 +117,52 @@ For example, the scale E-flat major (notes: E-flat | F | G | A-flat | B-flat | C
 
 Typical key signatures can have up to seven sharps or seven flats.
 
+The order which the sharps/flats are written is described below:
+Sharps: F, C, G, D, A, E, B
+Flats: B, E, A, D, G, C, F
+
+One may notice that the notes are each separated by seven semitones.
+ 
+
 #### Relative scales
-Two scales are said to be relative if they share the same same notes and thus the same key signature. For example, B minor is relative to D major.
+Two scales are said to be relative if they share the same same notes and thus the same key signature. For example, C minor is relative to E-flat major (key signature of three flats).
 
-D major: D | E | F-sharp | G | A | B | C-sharp
+E-flat major: E-flat | F | G | A-flat | B-flat | C | D
 
-B minor: B | C-sharp | D | E | F-sharp | G | A
+C minor: C | D | E-flat | F | G | A-flat | B-flat
+
+The following table describes the distance between relative scales.
+| Scale         | Distance to major scale (semitones) |
+| ------------- | ----------------------------------- |
+| Major/Ionian  | 0                                   |
+| Dorian        | 2                                   |
+| Phrygian      | 4                                   |
+| Lydian        | 5                                   |
+| Mixolydian    | 7                                   |
+| Minor/Aeolian | 9                                   |
+| Locrian       | 11                                  |
+
+For example, to find the relative minor of E-flat major go up nine semitones from E-flat to C. Thus, C minor is the relative minor of E-flat major.
+
+
+#### Circle of Fifths
+To determine a major scale's key signature, one can use the Circle of Fifths. Below are the steps required to do so.
+
+1. Start on the note C;
+2. Go up seven semitones;
+3. Repeat step 2 until one lands on the desired note;
+4. The number of times step 2 was repeated gives the number of sharps in the key signature.
+It should be noted step 2 may be repeated up to seven times.
+
+For example, to find the key signature of D major start on the note C and go up seven semitones to G, then up another seven semitones to D. Since D is the desired note and seven semitones were added twice, the key signature of D major is 2 sharps.
+
+A similar processs may be used to determine the number of flats by instead going down seven semitones (starting on the note C).
+
+Any scale's key signature can be found by first finding its relative major.
 
 
 ## Algorithms
-Below are ScaleBook's major algorithms.
+Below is an outline of ScaleBook's major algorithms.
 
 ### Reverse lookup
 (modeConversion array) determineNote, determineScale, determineKeySignature, checkInput
