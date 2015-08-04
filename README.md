@@ -1,8 +1,34 @@
 # ScaleBook
-Musical scale resource website by Leland Jansen.
+Musical scale resource website by Leland Jansen. From the initial sketches to the code thus far, everything has been created independently and coded from scratch.
+![ScaleBook home](ScaleBook_home.jpg)
+
+## Contents
+- Natural language processing
+  - Some things you can ask ScaleBook
+- Introduction and music theory
+  - Piano Keyboard
+  - Enharmonics
+  - Semitones
+  - Scales
+  - Key signatures
+  - Relative scales
+  - Circle of Fifths
+- Algorithms
+  - scaleScore array
+  - writeScale
+  - Determine note, scale, or key signature
+    - modeConversion array
+    - determineNote
+    - determineScale
+    - determineKeySignature
+    - checkInput
+  - parseUserInput
+- Attributions
+
+
 
 ## Natural language processing
-ScaleBook understands natural language meaning you can ask it a query in your own words. The [parseUserInput algorithm](#parseuserinput) is responsible for interpreting the user's input and is detailed in the [algorithms section](#algorithms).
+ScaleBook understands natural language meaning you can ask it a query in your own words. The [parseUserInput algorithm](#parseuserinput) is responsible for processing the user's natural language.
 
 ### Some things you can ask ScaleBook
 Scales
@@ -165,6 +191,7 @@ Any scale's key signature can be found by first finding its relative major.
 Below is an outline of ScaleBook's major algorithms, each developed independently and from scratch.
 
 ScaleBook assigns each note a number as outlined in the table below:
+
 | Number | Note name      |
 | ------ | -------------- |
 | 0      | C              |
@@ -188,45 +215,45 @@ The scaleScore array is used to determine what information has been provided by 
 // Scale Score table
 var scaleScore = [
 
-// item	    			value	total
+// item            value  total
 
-	[ // Scale
-	["major",				1,		0], // major
-	["minor",				1,		0], // minor
-	["ionian",			1,		0], // ionian
-	["dorian",			1,		0], // dorian
-	["phrygian",		1,		0], // phrygian
-	["lydian",			1,		0], // lydian
-	["mixolydian",	1,		0], // mixolydian
-	["aeolian",			1,		0], // aeolian
-	["locrian",			1,		0], // locrian
-	["blue",				10,		0], // blues
-	["chromatic",		10,		0], // chromatic
-	["pentatonic",	10,		0], // pentatonic
-	["whole",				10,		0]  // whole tone
-	],
+  [ // Scale
+  ["major",       1,    0], // major
+  ["minor",       1,    0], // minor
+  ["ionian",      1,    0], // ionian
+  ["dorian",      1,    0], // dorian
+  ["phrygian",    1,    0], // phrygian
+  ["lydian",      1,    0], // lydian
+  ["mixolydian",  1,    0], // mixolydian
+  ["aeolian",     1,    0], // aeolian
+  ["locrian",      1,    0], // locrian
+  ["blue",        10,    0], // blues
+  ["chromatic",    10,    0], // chromatic
+  ["pentatonic",  10,    0], // pentatonic
+  ["whole",        10,    0]  // whole tone
+  ],
 
-	[ // White Note
-	["c",			1,		0], // c
-	["d",			1,		0], // d
-	["e",			1,		0], // e
-	["f",			1,		0], // f
-	["g",			1,		0], // g
-	["a",			0.1,	0], // a
-	["b",			1,		0]  // b
-	],
+  [ // White Note
+  ["c",      1,    0], // c
+  ["d",      1,    0], // d
+  ["e",      1,    0], // e
+  ["f",      1,    0], // f
+  ["g",      1,    0], // g
+  ["a",      0.1,  0], // a
+  ["b",      1,    0]  // b
+  ],
 
-	[ // Accidental
-	["natural",		0,		0], // natural
-	["sharp", 		1,		0], // sharp
-	["flat",			-1,		0]  // flat
-	]
+  [ // Accidental
+  ["natural",    0,    0], // natural
+  ["sharp",     1,    0], // sharp
+  ["flat",      -1,    0]  // flat
+  ]
 
 ];
 ```
 
-### Write scale
-Type something clever...
+### writeScale
+Writing
 
 ### Determine note, scale, or key signature
 Using the concepts of relative scales and the Circle_of_Fifths, one can determine the starting note, scale type, or key signature of a particular scale scale given the other two pieces of information.
@@ -236,13 +263,13 @@ The modeConversion array details the number of semitones by which a note must be
 ```javascript
 // List of semitones between scale and relative major
 var modeConversion = [
-	["ionian",		 	 0], ["major",  0],
-	["dorian",			-2],
-	["phrygian",		-4],
-	["lydian",			-5],
-	["mixolydian",	-7],
-	["aeolian",			-9], ["minor", -9],
-	["locrian",			-11]
+  ["ionian",        0], ["major",  0],
+  ["dorian",      -2],
+  ["phrygian",    -4],
+  ["lydian",      -5],
+  ["mixolydian",  -7],
+  ["aeolian",      -9], ["minor", -9],
+  ["locrian",      -11]
 ];
 ```
 
@@ -251,26 +278,26 @@ The starting note of a scale can be determined if the scale type and key signatu
 ```javascript
 // Find note given scale and key signature
 function determineNote(scale, keySignature) {
-	"use strict";
+  "use strict";
 
-	// Loop through each element of modeConversion
-	for (i = 0; i < modeConversion.length; i++) {
-		// If the entry in the zeroth element of modeConversion matches the scale
-		if (modeConversion[i][0] === scale) {
-			// Scale is the number of semitones to relative major
-			scale = modeConversion[i][1];
-			break;
-		}
-	}
+  // Loop through each element of modeConversion
+  for (i = 0; i < modeConversion.length; i++) {
+    // If the entry in the zeroth element of modeConversion matches the scale
+    if (modeConversion[i][0] === scale) {
+      // Scale is the number of semitones to relative major
+      scale = modeConversion[i][1];
+      break;
+    }
+  }
 
-	// Find note using scale and key signature
-	// Start on note 7 octaves above 0 (lowest MIDI C)
-	// Go up (negative times negative) from relative major to relative scale
-	// Go up/down 7 semitones (perfect fifth) times the key signature to find the starting note
-	// Take modulus 12 to find note in first octave
-	var note = (7*12 - scale + 7 * keySignature)%12;
+  // Find note using scale and key signature
+  // Start on note 7 octaves above 0 (lowest MIDI C)
+  // Go up (negative times negative) from relative major to relative scale
+  // Go up/down 7 semitones (perfect fifth) times the key signature to find the starting note
+  // Take modulus 12 to find note in first octave
+  var note = (7*12 - scale + 7 * keySignature)%12;
 
-	return note;
+  return note;
 
 } // End of determineNote
 ```
@@ -280,31 +307,31 @@ The scale type can be determined if the starting note and key signature are spec
 ```javascript
 // Find scale type given a starting note and key signature
 function determineScale(note, keySignature) {
-	"use strict";
+  "use strict";
 
-	// Determine scale difference (between scale and its relative major)
-	// Start on note 7 octaves above 0 (lowest MIDI C)
-	// Go up/down 7 semitones (perfect fifth) times the key signature
-	// Take modulus 12 to find note in first octave
-	var scaleDifference = note + (12*7 - 7 * keySignature)%12;
-	// Add 12 to scale to ensure positive value
-	// Multiply by -1 to make negative
-	// Take modulus 12 to find note in first octave (value is negative)
-	scaleDifference = (-1 * (12 + scaleDifference))%12;
+  // Determine scale difference (between scale and its relative major)
+  // Start on note 7 octaves above 0 (lowest MIDI C)
+  // Go up/down 7 semitones (perfect fifth) times the key signature
+  // Take modulus 12 to find note in first octave
+  var scaleDifference = note + (12*7 - 7 * keySignature)%12;
+  // Add 12 to scale to ensure positive value
+  // Multiply by -1 to make negative
+  // Take modulus 12 to find note in first octave (value is negative)
+  scaleDifference = (-1 * (12 + scaleDifference))%12;
 
-	// Declare scaleName
-	var scaleName;
-	// Loop through each element of modeConversion
-	for (i = 0; i < modeConversion.length; i++) {
-		// If the first element of modeConversion matches the value determined for scale
-		if (modeConversion[i][1] === scaleDifference) {
-			// Scale is the zeroth element of modeConversion (i.e. scale name)
-			scaleName = modeConversion[i][0];
-			break;
-		}
-	}
+  // Declare scaleName
+  var scaleName;
+  // Loop through each element of modeConversion
+  for (i = 0; i < modeConversion.length; i++) {
+    // If the first element of modeConversion matches the value determined for scale
+    if (modeConversion[i][1] === scaleDifference) {
+      // Scale is the zeroth element of modeConversion (i.e. scale name)
+      scaleName = modeConversion[i][0];
+      break;
+    }
+  }
 
-	return scaleName;
+  return scaleName;
 
 } // End of determineScale
 ```
@@ -314,130 +341,130 @@ The key signature of a scale can be determined if the starting note and scale ty
 ```javascript
 // Find the key signature given a starting note and scale
 function determineKeySignature(note, scale) {
-	"use strict";
+  "use strict";
 
-	// Initialize keySignature and scaleIndex
-	var keySignature, scaleIndex;
+  // Initialize keySignature and scaleIndex
+  var keySignature, scaleIndex;
 
-	// Loop through major, minor, and modes in scaleScore scale element
-	for (i = 0; i < scaleScore[0].length; i++) {
-		// If specified scale matches scale element of scaleScore
-		if (scale === scaleScore[0][i][0]) {
-			// Set the scaleIndex to the scale's position in scaleScore
-			scaleIndex = i;
-			break;
-		}
-	}
+  // Loop through major, minor, and modes in scaleScore scale element
+  for (i = 0; i < scaleScore[0].length; i++) {
+    // If specified scale matches scale element of scaleScore
+    if (scale === scaleScore[0][i][0]) {
+      // Set the scaleIndex to the scale's position in scaleScore
+      scaleIndex = i;
+      break;
+    }
+  }
 
-	// If the scale is not a major, minor, or mode (i.e. has scaleIndex greater than 8)
-	if (scaleIndex > 8) {
-		// The scale has a key signature of 0 sharps or flats
-		keySignature = 0;
-	}
+  // If the scale is not a major, minor, or mode (i.e. has scaleIndex greater than 8)
+  if (scaleIndex > 8) {
+    // The scale has a key signature of 0 sharps or flats
+    keySignature = 0;
+  }
 
-	// Otherwise
-	else {
+  // Otherwise
+  else {
 
-		// Initially assign 0 to scaleDifference
-		var scaleDifference = 0;
-		// Get difference between ionian (major) scale and other scale using modeConversion array
-		// Loop through modeConversion array
-		for (i = 0; i < modeConversion.length; i++) {
-			// If the zeroth element of modeConversion matches the scale
-			if (modeConversion[i][0] === scale) {
-				// Get the scaleDifference from the first element
-				scaleDifference = modeConversion[i][1];
-				break;
-			}
-		}
+    // Initially assign 0 to scaleDifference
+    var scaleDifference = 0;
+    // Get difference between ionian (major) scale and other scale using modeConversion array
+    // Loop through modeConversion array
+    for (i = 0; i < modeConversion.length; i++) {
+      // If the zeroth element of modeConversion matches the scale
+      if (modeConversion[i][0] === scale) {
+        // Get the scaleDifference from the first element
+        scaleDifference = modeConversion[i][1];
+        break;
+      }
+    }
 
-		// Find the relative major note
-		var relativeMajorNote = note + scaleDifference;
+    // Find the relative major note
+    var relativeMajorNote = note + scaleDifference;
 
-		// Set key signature to 0 (no sharps or flats)
-		keySignature = 0;
+    // Set key signature to 0 (no sharps or flats)
+    keySignature = 0;
 
-		// Test for sharp key signatures (up to 7 sharps)
-		// If the relativeMajorNote is not C (i.e. 0) and the accidental scaleScore is greater than or equal to 0 (i.e. sharp)
-		if (relativeMajorNote%12 !== 0 && sumScaleScore("accidental") >= 0) {
-			// Loop through seven sharp key signatures
-			for (i = 0; i < 8; i++) {
-				// Go down seven semitones
-				relativeMajorNote -= 7;
-				// Increment key signature by one (add one sharp)
-				keySignature += 1;
-				// If relativeMajorNote is C
-				if (relativeMajorNote%12 === 0) {
-					break;
-				}
-			}
-		}
+    // Test for sharp key signatures (up to 7 sharps)
+    // If the relativeMajorNote is not C (i.e. 0) and the accidental scaleScore is greater than or equal to 0 (i.e. sharp)
+    if (relativeMajorNote%12 !== 0 && sumScaleScore("accidental") >= 0) {
+      // Loop through seven sharp key signatures
+      for (i = 0; i < 8; i++) {
+        // Go down seven semitones
+        relativeMajorNote -= 7;
+        // Increment key signature by one (add one sharp)
+        keySignature += 1;
+        // If relativeMajorNote is C
+        if (relativeMajorNote%12 === 0) {
+          break;
+        }
+      }
+    }
 
-		// If a sharp key signature is not found, test for flat key signatures (up to 7 flats)
-		// If relativeMajorNote is not C (i.e. 0) and and the accidental scaleScore is less or equal to than 0 (i.e. flat)
-		if (relativeMajorNote%12 !== 0 && sumScaleScore("accidental") <= 0) {
-			// Reset relativeMajorNote by re-determining its value
-			relativeMajorNote = note + scaleDifference;
-			// Reset keySignature to zero
-			keySignature = 0;
-			// Loop through seven flat key signatures
-			for (i = 0; i < 8; i++) {
-				// Go up seven semitones
-				relativeMajorNote += 7;
-				// Decrement key signature by one (add one flat)
-				keySignature -= 1;
-				// If relativeMajorNote is C
-				if (relativeMajorNote%12 === 0) {
-					break;
-				}
-		}
+    // If a sharp key signature is not found, test for flat key signatures (up to 7 flats)
+    // If relativeMajorNote is not C (i.e. 0) and and the accidental scaleScore is less or equal to than 0 (i.e. flat)
+    if (relativeMajorNote%12 !== 0 && sumScaleScore("accidental") <= 0) {
+      // Reset relativeMajorNote by re-determining its value
+      relativeMajorNote = note + scaleDifference;
+      // Reset keySignature to zero
+      keySignature = 0;
+      // Loop through seven flat key signatures
+      for (i = 0; i < 8; i++) {
+        // Go up seven semitones
+        relativeMajorNote += 7;
+        // Decrement key signature by one (add one flat)
+        keySignature -= 1;
+        // If relativeMajorNote is C
+        if (relativeMajorNote%12 === 0) {
+          break;
+        }
+    }
 
-		// If key signature is less than seven (has more than 7 flats)
-		if (keySignature < -7) {
-			// Reset relativeMajorNote by re-determining its value
-			relativeMajorNote = note + scaleDifference;
-			// Reset keySignature to zero
-			keySignature = 0;
-			// Loop through seven sharp key signatures
-			for (i = 0; i < 8; i++) {
-				// Go down seven semitones
-				relativeMajorNote -= 7;
-				// Increment key signature by one (add one sharp)
-				keySignature += 1;
-				// If relativeMajorNote is C
-				if (relativeMajorNote%12 === 0) {
-					break;
-				}
-			}
-		}
-		// If key signature is less than seven (has more than 7 sharps)
-		else if (keySignature > 7) {
-			// Reset relativeMajorNote by re-determining its value
-			relativeMajorNote = note + scaleDifference;
-			// Reset keySignature to zero
-			keySignature = 0;
-			// Loop through seven flat key signatures
-			for (i = 0; i < 8; i++) {
-				// Go up seven semitones
-				relativeMajorNote += 7;
-				// Decrement key signature by one (add one flat)
-				keySignature -= 1;
-				// If relativeMajorNote is C
-				if (relativeMajorNote%12 === 0) {
-					break;
-				}
-			}
-		}
+    // If key signature is less than seven (has more than 7 flats)
+    if (keySignature < -7) {
+      // Reset relativeMajorNote by re-determining its value
+      relativeMajorNote = note + scaleDifference;
+      // Reset keySignature to zero
+      keySignature = 0;
+      // Loop through seven sharp key signatures
+      for (i = 0; i < 8; i++) {
+        // Go down seven semitones
+        relativeMajorNote -= 7;
+        // Increment key signature by one (add one sharp)
+        keySignature += 1;
+        // If relativeMajorNote is C
+        if (relativeMajorNote%12 === 0) {
+          break;
+        }
+      }
+    }
+    // If key signature is less than seven (has more than 7 sharps)
+    else if (keySignature > 7) {
+      // Reset relativeMajorNote by re-determining its value
+      relativeMajorNote = note + scaleDifference;
+      // Reset keySignature to zero
+      keySignature = 0;
+      // Loop through seven flat key signatures
+      for (i = 0; i < 8; i++) {
+        // Go up seven semitones
+        relativeMajorNote += 7;
+        // Decrement key signature by one (add one flat)
+        keySignature -= 1;
+        // If relativeMajorNote is C
+        if (relativeMajorNote%12 === 0) {
+          break;
+        }
+      }
+    }
 
-		// If key signature is still less than -7 (has more than 7 flats) or greater than 7 (has more than 7 sharps)
-		if (keySignature < -7 || keySignature > 7) {
-			// Key signature is 0 sharps or flats
-			keySignature = 0;
-		}
+    // If key signature is still less than -7 (has more than 7 flats) or greater than 7 (has more than 7 sharps)
+    if (keySignature < -7 || keySignature > 7) {
+      // Key signature is 0 sharps or flats
+      keySignature = 0;
+    }
 
-	} // End of else
+  } // End of else
 
-	return Number(keySignature);
+  return Number(keySignature);
 
 } // End of determineKeySignature
 ```
@@ -447,26 +474,53 @@ If given the starting note, scale type, and key signature, one can determine if 
 ```javascript
 // Check if given scale on given note has given key signature
 function checkInput(note, scale, keySignature) {
-	"use strict";
+  "use strict";
 
-	// If the specified key signature is equivalent to the computed key signature computed using the note and scale type
-	if (Number(keySignature) === Number(determineKeySignature(note, scale))) {
-		// The specified information agrees, thus is true
-		return true;
-	}
-	else {
-		// The specified information does not agree, thus is false
-		return false;
-	}
+  // If the specified key signature is equivalent to the computed key signature computed using the note and scale type
+  if (Number(keySignature) === Number(determineKeySignature(note, scale))) {
+    // The specified information agrees, thus is true
+    return true;
+  }
+  else {
+    // The specified information does not agree, thus is false
+    return false;
+  }
 
 } // End of checkInput
 ```
 
- 
-### parseUserInput
-(scaleScore array) stringScore, sumScaleScore, zeroScaleScore, getHighestValue
 
-#### (scaleScore array) stringScore
-#### sumScaleScore
-#### zeroScaleScore
-#### getHighestValue
+### parseUserInput
+Below is an outline of the parseUserInput algorithm ScaleBook uses for Natural_Language_Processing.
+- String parsing
+  - Collect user input from search field
+  - Convert the string to lower case and remove/replace special characters
+  - Split the string into an array with each word in its own element
+  - Convert certain letters to accidentals
+  - Correct spelling
+  - Rewrite plural words, contractions, synonyms,
+  - Replace written numbers with numeric numbers
+  - Edit string around pronouns
+  - Remove/replace keywords
+  - Analyze string when multiple accidentals are present
+- Get information from modified string array
+  - Zero scaleScore totals
+  - Determine key signature from string
+  - Score scales, white notes, and accidentals in scaleScore
+  - Modify scaleScore for special B-flat and A special case
+  - Second special case for A
+  - Determine if certain keywords are present in the string
+  - Determine the scale type and note from scaleScore
+- Action
+  - Gather keyword, scale type, note, and key signature information
+  - Perform necessary computations
+  - Generate interpretation
+  - Generate answer
+  - Apply music formatting to the  interpretation and answer strings
+- Return result
+
+The complete parseUserInput function can be found in the file ScaleBook.js.
+
+
+## Attributions
+While this project was designed and coded independently, it would not have been possible without the numerous online resources available to me. I would like to thank those people on the Internet who have shared their knowledge to make projects like these possible.
