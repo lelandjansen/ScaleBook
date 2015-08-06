@@ -226,11 +226,11 @@ var scaleScore = [
   ["lydian",      1,    0], // lydian
   ["mixolydian",  1,    0], // mixolydian
   ["aeolian",     1,    0], // aeolian
-  ["locrian",      1,    0], // locrian
-  ["blue",        10,    0], // blues
-  ["chromatic",    10,    0], // chromatic
-  ["pentatonic",  10,    0], // pentatonic
-  ["whole",        10,    0]  // whole tone
+  ["locrian",     1,    0], // locrian
+  ["blue",       10,    0], // blues
+  ["chromatic",  10,    0], // chromatic
+  ["pentatonic", 10,    0], // pentatonic
+  ["whole",      10,    0]  // whole tone
   ],
 
   [ // White Note
@@ -244,16 +244,150 @@ var scaleScore = [
   ],
 
   [ // Accidental
-  ["natural",    0,    0], // natural
+  ["natural",   0,    0], // natural
   ["sharp",     1,    0], // sharp
-  ["flat",      -1,    0]  // flat
+  ["flat",     -1,    0]  // flat
   ]
 
 ];
 ```
 
-### writeScale
-Writing
+### generateScale
+ScaleBook uses the starting note and semitone pattern to generate scales.
+
+To determine which enharmonic to use for the accidentals of seven-note scale:
+1. The scale is written as an array of numbers using the starting note and semitone pattern.
+2. An array of seven sequential white note numbers is written. In the case where the starting note is not a white note, the natural of that note is used.
+3. The array's elements are subtracted from one another into a third array. The result gives the accidental of each note (i.e. -1 for flat, 0 for natural, 1 for sharp).
+4. The scale is then written out (with letters) using the white note number and accidental numbers.
+
+Using this method, scales without a standard key signature (e.g. G-sharp major) can also be written correctly by using double sharps and flats.
+
+For example, E major is represented by the number 4 and major scales follow the semitone pattern 2, 2, 1, 2, 2, 2, 1. The scale written as numbers is:
+
+4, 6, 8, 9, 11, 13, 15
+
+The white note sequence starting on E is:
+
+4, 5, 7, 9, 11, 12, 14
+
+Subtracting the two arrays gives:
+0, 1, 1, 0, 0, 1, 1
+
+Therefore, the notes of E major are:
+
+E, F-sharp, G-sharp, A, B, C-sharp, and D-sharp
+
+
+```javascript
+function generateScale(startNoteName, scalePattern) {
+	"use strict";
+
+	var startNote = 0;
+	var scaleArray =	[
+											[],	// MIDI notes
+											[],	// White notes MIDI
+											[],	// Accidental MIDI
+											[]	// Written note
+										];
+
+  // Find the number corresponding with the start note name
+	// Loop through each element of whiteNoteChart
+	for (i = 0; i < whiteNoteChart.length; i++) {
+		// If the first character of startNoteName matches the note name in whiteNoteChart
+		if (startNoteName[0].toUpperCase() === whiteNoteChart[i][1]) {
+			// Add the corresponding MIDI number to startNote
+			startNote += whiteNoteChart[i][0];
+			break;
+		}
+	}
+
+	// Assign the first (zeroth) element of scaleArray White note MIDI to startNote
+	scaleArray[1][0] = startNote;
+
+	// Add seven consecutive white notes to white notes MIDI
+	for (j = 1; j < whiteNoteChart.length; j++) {
+		scaleArray[1][j] = (whiteNoteChart[(i+j)%7][0])%12;
+	}
+
+	// If startNoteName contains "sharp"
+	if (startNoteName.indexOf("sharp") > -1) {
+		// Add 1 to the startNote
+		startNote += 1;
+	}
+	// If startNoteName contains "flat"
+	else if (startNoteName.indexOf("flat") > -1) {
+		// Subtract 1 from startNote
+		startNote -= 1;
+	}
+
+	// Assign the first (zeroth) element of scaleArray MIDI note to startNote
+	scaleArray[0].push(startNote);
+
+  // Generate the scale using numbers
+  // Loop through each element of scalePattern starting at the second element
+	for (i = 1; i < scalePattern.length; i++) {
+		// Add the element of scalePatten to the previous element of scalePattern
+    // Convert to base 12
+    scaleArray[0][i] = (scaleArray[0][i-1] + scalePattern[i-1])%12;
+	}
+
+  // Loop through each element of scalePattern
+	for (i = 0; i < scalePattern.length; i++) {
+		//
+    // Convert to base 12
+    scaleArray[2][i] = (scaleArray[0][i] - scaleArray[1][i])%12;
+		//
+    // This is necessary due to numbers being in base 12
+    if (scaleArray[2][i] === 11) {
+			//
+      scaleArray[2][i] = -1;
+		}
+	}
+
+  //
+	for (i = 0; i < scaleArray[0].length; i++) {
+		//
+    scaleArray[0][i] = scaleArray[0][i];
+	}
+
+  //
+	var found;
+	//
+  for (i = 0; i < scaleArray[0].length; i++) {
+		//
+    found = false;
+		//
+    for (j = 0; j < whiteNoteChart.length; j++) {
+			//
+      if (scaleArray[1][i] === whiteNoteChart[j][0]) {
+				//
+        scaleArray[3][i] = whiteNoteChart[j][1];
+				//
+        found = true;
+			}
+			//
+      if (scaleArray[2][i] === 1) {
+				//
+        scaleArray[3][i] += "-sharp";
+			}
+      //
+			else if (scaleArray[2][i] === -1) {
+				//
+        scaleArray[3][i] += "-flat";
+			}
+      //
+			if (found === true) {
+				// Break out of the loop
+        break;
+			}
+		}
+	}
+
+	return scaleArray;
+
+} // End of generateScale
+```
 
 ### Determine note, scale, or key signature
 Using the concepts of relative scales and the Circle_of_Fifths, one can determine the starting note, scale type, or key signature of a particular scale scale given the other two pieces of information.
@@ -523,4 +657,4 @@ The complete parseUserInput function can be found in the file ScaleBook.js.
 
 
 ## Attributions
-While this project was designed and coded independently, it would not have been possible without the numerous online resources available to me. I would like to thank those people on the Internet who have shared their knowledge to make projects like these possible.
+Although this project was designed and coded independently, it was made possible by the numerous online resources available to me. I would like to thank those who shared their knowledge and expertise to make projects like these possible.
