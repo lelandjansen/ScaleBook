@@ -258,6 +258,7 @@ var scaleScore = [
 ScaleBook uses the starting note and semitone pattern to generate scales.
 
 To determine which enharmonic to use for the accidentals of seven-note scale:
+
 1. The scale is written as an array of numbers using the starting note and semitone pattern.
 2. An array of seven sequential white note numbers is written. In the case where the starting note is not a white note, the natural of that note is used.
 3. The array's elements are subtracted from one another into a third array. The result gives the accidental of each note (i.e. -1 for flat, 0 for natural, 1 for sharp).
@@ -265,7 +266,11 @@ To determine which enharmonic to use for the accidentals of seven-note scale:
 
 Using this method, scales without a standard key signature (e.g. G-sharp major) can also be written correctly by using double sharps and flats.
 
-For example, [E major](http://www.scalebook.org/scale?/E/#/major) is represented by the number 4 and major scales follow the semitone pattern 2, 2, 1, 2, 2, 2, 1. The scale written as numbers is:
+For example, [E major](http://www.scalebook.org/scale?/E/#/major) is represented by the number 4 and major scales follow the semitone pattern:
+
+2, 2, 1, 2, 2, 2, 1
+
+Thus, the scale written as numbers is:
 
 4, 6, 8, 9, 11, 13, 15
 
@@ -274,6 +279,7 @@ The white note sequence starting on E is:
 4, 5, 7, 9, 11, 12, 14
 
 Subtracting the two arrays gives:
+
 0, 1, 1, 0, 0, 1, 1
 
 Therefore, the notes of E major are:
@@ -283,104 +289,104 @@ E, F-sharp, G-sharp, A, B, C-sharp, and D-sharp
 
 ```javascript
 function generateScale(startNoteName, scalePattern) {
-	"use strict";
+  "use strict";
 
-	var startNote = 0;
-	var scaleArray =	[
-											[],	// MIDI notes
-											[],	// White notes MIDI
-											[],	// Accidental MIDI
-											[]	// Written note
-										];
+  var startNote = 0;
+  var scaleArray =  [
+                      [],  // MIDI notes
+                      [],  // White notes MIDI
+                      [],  // Accidental MIDI
+                      []  // Written note
+                    ];
 
   // Find the number corresponding with the start note name
-	// Loop through each element of whiteNoteChart
-	for (i = 0; i < whiteNoteChart.length; i++) {
-		// If the first character of startNoteName matches the note name in whiteNoteChart
-		if (startNoteName[0].toUpperCase() === whiteNoteChart[i][1]) {
-			// Add the corresponding MIDI number to startNote
-			startNote += whiteNoteChart[i][0];
-			break;
-		}
-	}
+  // Loop through each element of whiteNoteChart
+  for (i = 0; i < whiteNoteChart.length; i++) {
+    // If the first character of startNoteName matches the note name in whiteNoteChart
+    if (startNoteName[0].toUpperCase() === whiteNoteChart[i][1]) {
+      // Add the corresponding MIDI number to startNote
+      startNote += whiteNoteChart[i][0];
+      break;
+    }
+  }
 
-	// Assign the first (zeroth) element of scaleArray White note MIDI to startNote
-	scaleArray[1][0] = startNote;
+  // Assign the first (zeroth) element of scaleArray White note MIDI to startNote
+  scaleArray[1][0] = startNote;
 
-	// Add seven consecutive white notes to white notes MIDI
-	for (j = 1; j < whiteNoteChart.length; j++) {
-		scaleArray[1][j] = (whiteNoteChart[(i+j)%7][0])%12;
-	}
+  // Add seven consecutive white notes to white notes MIDI
+  for (j = 1; j < whiteNoteChart.length; j++) {
+    scaleArray[1][j] = (whiteNoteChart[(i+j)%7][0])%12;
+  }
 
-	// If startNoteName contains "sharp"
-	if (startNoteName.indexOf("sharp") > -1) {
-		// Add 1 to the startNote
-		startNote += 1;
-	}
-	// If startNoteName contains "flat"
-	else if (startNoteName.indexOf("flat") > -1) {
-		// Subtract 1 from startNote
-		startNote -= 1;
-	}
+  // If startNoteName contains "sharp"
+  if (startNoteName.indexOf("sharp") > -1) {
+    // Add 1 to the startNote
+    startNote += 1;
+  }
+  // If startNoteName contains "flat"
+  else if (startNoteName.indexOf("flat") > -1) {
+    // Subtract 1 from startNote
+    startNote -= 1;
+  }
 
-	// Assign the first (zeroth) element of scaleArray MIDI note to startNote
-	scaleArray[0].push(startNote);
+  // Assign the first (zeroth) element of scaleArray MIDI note to startNote
+  scaleArray[0].push(startNote);
 
   // Generate the scale using numbers
   // Loop through each element of scalePattern starting at the second element
-	for (i = 1; i < scalePattern.length; i++) {
-		// Add the element of scalePatten to the previous element of scalePattern
+  for (i = 1; i < scalePattern.length; i++) {
+    // Add the element of scalePatten to the previous element of scalePattern
     // Convert to base 12
     scaleArray[0][i] = (scaleArray[0][i-1] + scalePattern[i-1])%12;
-	}
+  }
 
   // Loop through the length of scalePattern
-	for (i = 0; i < scalePattern.length; i++) {
-		// Subtract the scale number from the white note number
+  for (i = 0; i < scalePattern.length; i++) {
+    // Subtract the scale number from the white note number
     // Convert to base 12
     scaleArray[2][i] = (scaleArray[0][i] - scaleArray[1][i])%12;
-		// If the subtraction results in 11 (this is necessary due to numbers being in base 12)
+    // If the subtraction results in 11 (this is necessary due to numbers being in base 12)
     if (scaleArray[2][i] === 11) {
-			// Change 11 to -1
+      // Change 11 to -1
       scaleArray[2][i] = -1;
-		}
-	}
+    }
+  }
 
   // Initialize found variable (represents whether or not the whiteNote has been found)
-	var found;
-	// Loop through the length of the first element of scaleArray
+  var found;
+  // Loop through the length of the first element of scaleArray
   for (i = 0; i < scaleArray[0].length; i++) {
-		// Set found to false (the white note has not yet been found)
+    // Set found to false (the white note has not yet been found)
     found = false;
-		// Loop through the length of whiteNoteChart
+    // Loop through the length of whiteNoteChart
     for (j = 0; j < whiteNoteChart.length; j++) {
-			// If the note number in the first element of scaleArray matches
+      // If the note number in the first element of scaleArray matches
       // the number in the zeroth element of whiteNoteChart
       if (scaleArray[1][i] === whiteNoteChart[j][0]) {
-				// Set the third element of scaleArray to the name of that white note
+        // Set the third element of scaleArray to the name of that white note
         scaleArray[3][i] = whiteNoteChart[j][1];
-				// The whiteNote has been found
+        // The whiteNote has been found
         found = true;
-			}
-			// If the second element of scaleArray is 1 (i.e. sharp)
+      }
+      // If the second element of scaleArray is 1 (i.e. sharp)
       if (scaleArray[2][i] === 1) {
-				// Add "-sharp" to the end of the white note name in the third element of scaleArray
+        // Add "-sharp" to the end of the white note name in the third element of scaleArray
         scaleArray[3][i] += "-sharp";
-			}
+      }
       // If the second element of scaleArray is -1 (i.e. flat)
-			else if (scaleArray[2][i] === -1) {
-				// Add "-sharp" to the end of the white note name in the third element of scaleArray
+      else if (scaleArray[2][i] === -1) {
+        // Add "-sharp" to the end of the white note name in the third element of scaleArray
         scaleArray[3][i] += "-flat";
-			}
+      }
       // If the whiteNote was found
-			if (found === true) {
-				// Break out of the loop
+      if (found === true) {
+        // Break out of the loop
         break;
-			}
-		}
-	}
+      }
+    }
+  }
 
-	return scaleArray;
+  return scaleArray;
 
 } // End of generateScale
 ```
@@ -393,13 +399,13 @@ The modeConversion array details the number of semitones by which a note must be
 ```javascript
 // List of semitones between scale and relative major
 var modeConversion = [
-  ["ionian",        0], ["major",  0],
+  ["ionian",       0], ["major",  0],
   ["dorian",      -2],
   ["phrygian",    -4],
   ["lydian",      -5],
   ["mixolydian",  -7],
-  ["aeolian",      -9], ["minor", -9],
-  ["locrian",      -11]
+  ["aeolian",     -9], ["minor", -9],
+  ["locrian",    -11]
 ];
 ```
 
@@ -622,6 +628,7 @@ function checkInput(note, scale, keySignature) {
 
 ### parseUserInput
 Below is an outline of the parseUserInput algorithm ScaleBook uses for *Natural Language Processing*.
+
 - String parsing
   - Collect user input from search field
   - Convert the string to lower case and remove/replace special characters
@@ -653,4 +660,4 @@ The complete parseUserInput function can be found in the file ScaleBook.js.
 
 
 ## Attributions
-Although ScaleBook was designed and coded independently, it was made possible by the numerous online resources available to me. I would like to thank those who shared their knowledge and expertise to make ScaleBook possible.
+Although ScaleBook was designed and coded independently, it was made possible by the numerous online resources available to me. I would like to thank those who shared their knowledge and expertise to make this project possible.
