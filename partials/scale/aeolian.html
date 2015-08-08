@@ -1,0 +1,115 @@
+<!doctype html>
+
+<!--
+  ScaleBook
+  aeolian.html
+  v1.0.0
+  Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+
+
+<!-- Divider -->
+<div id="divider" style="background-color: #2964CC;"></div> <!-- 220 -->
+
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Similar motion in octaves -->
+	<span class="colorDark">Similar motion in octaves</span>
+  <img id="scaleImage" ng-src="scales/minor/natural minor - similar motion in octaves/{{noteName}}.svg" alt="Similar motion in octaves" draggable="false" />
+</div>
+
+<!-- Info -->
+<!-- Divider -->
+<div id="divider" style="background-color: #2929CC;"></div> <!-- 240 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+  <!-- Scale information stored in table of three columns -->
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="line-height: 21pt;">
+		<!-- Vertically align all text to top -->
+		<tbody valign="top">
+			<tr>
+				<!-- Name, notes, and semitone pattern -->
+				<td align="left">
+	      	<!-- Name -->
+					<span class="colorMedium">Scale</span><br/>
+          Aeolian mode built on <span ng-bind-html="noteName | textStyle | trustAsHTML">{{noteName | textStyle | trustAsHTML}}</span><br/>
+          <br/>
+          <!-- Notes -->
+					<span class="colorMedium">Notes</span><br/>
+					<!-- Bound using AngularJS to scaleArray computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][1] | textStyle | trustAsHTML">{{scaleArray[3][1] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][3] | textStyle | trustAsHTML">{{scaleArray[3][3] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][4] | textStyle | trustAsHTML">{{scaleArray[3][4] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][5] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span>
+					|
+					(<span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span>)<br/>
+					<br/>
+					<!-- Semitone pattern -->
+          <span class="colorMedium">Semitone pattern</span><br/>
+          2 | 1 | 2 | 2 | 1 | 2 | 2<br/>
+	      </td>
+				<!-- Key signature, relative minor, and enharmonic equivalent -->
+				<td align="left">
+	      	<!-- Key signature -->
+					<span class="colorMedium">Key signature</span><br/>
+					<!-- Bound using AngularJS to keySignature computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<span ng-bind-html="keySignature | textStyle | trustAsHTML">{{keySignature | textStyle | trustAsHTML}}</span><br/>
+          <br/>
+          <!-- Relative major -->
+					<span class="colorMedium">Relative major</span><br/>
+          <!-- Relative major note is third note of aeolian scale -->
+					<!-- Bound using AngularJS to scaleArray computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<a ng-href="?/{{scaleArray[3][2]}}/#/major">Major scale built on <span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span></a><br/>
+          <br/>
+          <!-- Enahrmonic equivalent -->
+					<span class="colorMedium">Enharmonic equivalent</span><br/>
+					<!-- Bound using AngularJS to enharmonicNoteName computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<!-- Hide if enharmonicNoteName outputs "None" (i.e. show enharmonic scale if it exists) -->
+					<span ng-hide="enharmonicNoteName === 'None'">
+						<a ng-href="?/{{enharmonicNoteName}}/#/minor">Aeolian mode built on <span ng-bind-html="enharmonicNoteName | textStyle | trustAsHTML">{{enharmonicNoteName | textStyle | trustAsHTML}}</span></a><br/>
+					</span>
+					<!-- Show "None" if enharmonicNoteName outpus "None" (i.e. enharmonic scale does not exist) -->
+					<span ng-show="enharmonicNoteName === 'None'">
+						None<br/>
+					</span>
+	      </td>
+	      <!-- Related modes -->
+				<td align="left">
+	      	<!-- Related modes -->
+					<span class="colorMedium">Related modes</span><br/>
+					<!-- Bound using AngularJS to scaleArray computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<a ng-href="?/{{scaleArray[3][2]}}/#/ionian">Ionian mode on <span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][3]}}/#/dorian">Dorian mode on <span ng-bind-html="scaleArray[3][3] | textStyle | trustAsHTML">{{scaleArray[3][3] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][4]}}/#/phrygian">Phrygian mode on <span ng-bind-html="scaleArray[3][4] | textStyle | trustAsHTML">{{scaleArray[3][4] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][5]}}/#/lydian">Lydian mode on <span ng-bind-html="scaleArray[3][5] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][6]}}/#/mixolydian">Mixolydian mode on <span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][0]}}/#/aeolian">Aeolian mode on <span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][1]}}/#/locrian">Locrian mode on <span ng-bind-html="scaleArray[3][1] | textStyle | trustAsHTML">{{scaleArray[3][1] | textStyle | trustAsHTML}}</span></a><br/>
+				</td>
+			</tr>
+	  </tbody>
+	</table>
+</div> <!-- End of "scaleContent" -->
+
+<!-- Final divider -->
+<div id="divider" style="background-color: #5C29CC; margin-bottom: 10pt;"></div> <!-- 260 -->

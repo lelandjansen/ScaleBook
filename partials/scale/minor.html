@@ -1,0 +1,295 @@
+<!doctype html>
+
+<!--
+  ScaleBook
+  minor.html
+  v1.0.0
+  Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+
+
+<!-- Divider -->
+<div id="divider" style="background-color: #2964CC;"></div> <!-- 220 -->
+
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Similar motion in octaves -->
+	<span class="colorDark">Harmonic minor | Similar motion in octaves</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - similar motion in octaves/{{noteName}}.svg" alt="Harmonic minor | Similar motion in octaves" draggable="false" />
+</div>
+
+<!-- Info -->
+<!-- Divider -->
+<div id="divider" style="background-color: #2929CC;"></div> <!-- 240 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Scale information stored in table of three columns -->
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="line-height: 21pt;">
+		<!-- Vertically align all text to top -->
+		<tbody valign="top">
+			<tr>
+				<!-- Scale name, notes, and semitone pattern -->
+				<td align="left">
+	      	<!-- Scale name -->
+					<span class="colorMedium">Scale</span><br/>
+					Minor scale built on <span ng-bind-html="noteName | textStyle | trustAsHTML">{{noteName | textStyle | trustAsHTML}}</span><br/>
+          <br/>
+					<!-- Notes (natural minor) -->
+          <span class="colorMedium">Notes (natural minor)</span><br/>
+					<!-- Bound using AngularJS to scaleArray computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][1] | textStyle | trustAsHTML">{{scaleArray[3][1] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][3] | textStyle | trustAsHTML">{{scaleArray[3][3] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][4] | textStyle | trustAsHTML">{{scaleArray[3][4] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][5] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span>
+					|
+					(<span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span>)<br/>
+					<br/>
+					<!-- Semitone pattern (natural minor) -->
+          <span class="colorMedium">Semitone pattern (natural minor)</span><br/>
+          2 | 1 | 2 | 2 | 1 | 2 | 2<br/>
+	      </td>
+				<!-- Key signature, relative minor, and enharmonic equivalent -->
+				<td align="left">
+	      	<!-- Key signature -->
+					<span class="colorMedium">Key signature</span><br/>
+					<!-- Bound using AngularJS to keySignature computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<span ng-bind-html="keySignature | textStyle | trustAsHTML">{{keySignature | textStyle | trustAsHTML}}</span><br/>
+          <br/>
+          <!-- Relative major -->
+					<span class="colorMedium">Relative major</span><br/>
+					<!-- Relative minor note is third note of minor scale -->
+					<!-- Bound using AngularJS to scaleArray computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<a ng-href="?/{{scaleArray[3][2]}}/#/major">Major scale built on <span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span></a><br/>
+          <br/>
+          <!-- Enahrmonic equivalent -->
+					<span class="colorMedium">Enharmonic equivalent</span><br/>
+					<!-- Bound using AngularJS to enharmonicNoteName computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<!-- Hide if enharmonicNoteName outputs "None" (i.e. show enharmonic scale if it exists) -->
+					<span ng-hide="enharmonicNoteName === 'None'">
+						<a ng-href="?/{{enharmonicNoteName}}/#/minor">Minor scale built on <span ng-bind-html="enharmonicNoteName | textStyle | trustAsHTML">{{enharmonicNoteName | textStyle | trustAsHTML}}</span></a><br/>
+					</span>
+					<!-- Show "None" if enharmonicNoteName outpus "None" (i.e. enharmonic scale does not exist) -->
+					<span ng-show="enharmonicNoteName === 'None'">
+						None<br/>
+					</span>
+	      </td>
+	      <!-- Related modes -->
+				<td align="left">
+	      	<!-- Related modes -->
+					<span class="colorMedium">Related modes</span><br/>
+					<!-- Bound using AngularJS to scaleArray computed from scale name and note name
+							 The output note names (stored in the array) are formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+							 Output is then treated as HTML markup -->
+					<a ng-href="?/{{scaleArray[3][2]}}/#/ionian">Ionian mode on <span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][3]}}/#/dorian">Dorian mode on <span ng-bind-html="scaleArray[3][3] | textStyle | trustAsHTML">{{scaleArray[3][3] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][4]}}/#/phrygian">Phrygian mode on <span ng-bind-html="scaleArray[3][4] | textStyle | trustAsHTML">{{scaleArray[3][4] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][5]}}/#/lydian">Lydian mode on <span ng-bind-html="scaleArray[3][5] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][6]}}/#/mixolydian">Mixolydian mode on <span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][0]}}/#/aeolian">Aeolian mode on <span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][1] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][1]}}/#/locrian">Locrian mode on <span ng-bind-html="scaleArray[3][1] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span></a><br/>
+				</td>
+			</tr>
+	  </tbody>
+	</table>
+</div> <!-- End of "scaleContent" -->
+
+<!-- Natural minor | Similar motion in octaves -->
+<!-- Divider -->
+<div id="divider" style="background-color: #5C29CC;"></div> <!-- 260 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Natural minor | Similar motion in octaves -->
+	<span class="colorDark">Natural minor | Similar motion in octaves</span>
+  <img id="scaleImage" ng-src="scales/minor/natural minor - similar motion in octaves/{{noteName}}.svg" alt="Natural minor | Similar motion in octaves" draggable="false" />
+</div>
+
+<!-- Melodic minor | Similar motion in octaves -->
+<!-- Divider -->
+<div id="divider" style="background-color: #9429CC;"></div> <!-- 280 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Melodic minor | Similar motion in octaves -->
+	<span class="colorDark">Melodic minor | Similar motion in octaves</span>
+  <img id="scaleImage" ng-src="scales/minor/melodic minor - similar motion in octaves/{{noteName}}.svg" alt="Melodic minor | Similar motion in octaves" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Contrary motion from unison -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CC29CC;"></div> <!-- 300 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Contrary motion from unison -->
+	<span class="colorDark">Harmonic minor | Contrary motion from unison</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - contrary motion from unison/{{noteName}}.svg" alt="Harmonic minor | Contrary motion from unison" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Formula pattern -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CC299A;"></div> <!-- 320 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Formula pattern -->
+	<span class="colorDark">Harmonic minor | Formula pattern</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - formula pattern/{{noteName}}.svg" alt="Harmonic minor | Formula pattern" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Similar motion in thirds -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CC2964;"></div> <!-- 340 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Similar motion in thirds -->
+	<span class="colorDark">Harmonic minor | Similar motion in thirds</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - similar motion in thirds/{{noteName}}.svg" alt="Harmonic minor | Similar motion in thirds" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Similar motion in sixths -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CC2929;"></div> <!-- 0   -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Similar motion in sixths -->
+	<span class="colorDark">Harmonic minor | Similar motion in sixths</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - similar motion in sixths/{{noteName}}.svg" alt="Harmonic minor | Similar motion in sixths" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Similar motion in tenths -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CC5F29;"></div> <!-- 20  -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Similar motion in tenths -->
+	<span class="colorDark">Harmonic minor | Similar motion in tenths</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - similar motion in tenths/{{noteName}}.svg" alt="Harmonic minor | Similar motion in tenths" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Similar motion in double thirds -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CC9629;"></div> <!-- 40  -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Similar motion in double thirds -->
+	<span class="colorDark">Harmonic minor | Similar motion in double thirds</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - similar motion in double thirds/{{noteName}}.svg" alt="Harmonic minor | Similar motion in double thirds" draggable="false" />
+</div>
+
+<!-- Triads (blocked) -->
+<!-- Divider -->
+<div id="divider" style="background-color: #CCCC29;"></div> <!-- 60  -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Triads (blocked) -->
+	<span class="colorDark">Triads (blocked)</span>
+  <img id="scaleImage" ng-src="scales/minor/triads (blocked)/{{noteName}}.svg" alt="Triads (blocked)" draggable="false" />
+</div>
+
+<!-- Triads (broken) -->
+<!-- Divider -->
+<div id="divider" style="background-color: #99CC29;"></div> <!-- 80  -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Triads (broken) -->
+	<span class="colorDark">Triads (broken)</span>
+  <img id="scaleImage" ng-src="scales/minor/triads (broken)/{{noteName}}.svg" alt="Triads (broken)" draggable="false" />
+</div>
+
+<!-- Four-note chords (blocked) -->
+<!-- Divider -->
+<div id="divider" style="background-color: #61CC29;"></div> <!-- 100 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Four-note chords (blocked) -->
+	<span class="colorDark">Four-note chords (blocked)</span>
+  <img id="scaleImage" ng-src="scales/minor/four-note chords (blocked)/{{noteName}}.svg" alt="Four-note chords (blocked)" draggable="false" />
+</div>
+
+<!-- Four-note chords (broken) -->
+<!-- Divider -->
+<div id="divider" style="background-color: #29CC29;"></div> <!-- 120 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Four-note chords (broken) -->
+	<span class="colorDark">Four-note chords (broken)</span>
+  <img id="scaleImage" ng-src="scales/minor/four-note chords (broken)/{{noteName}}.svg" alt="Four-note chords (broken)" draggable="false" />
+</div>
+
+<!-- Arpeggios -->
+<!-- Divider -->
+<div id="divider" style="background-color: #29CC5F;"></div> <!-- 140 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Arpeggios -->
+	<span class="colorDark">Arpeggios</span>
+  <img id="scaleImage" ng-src="scales/minor/arpeggios/{{noteName}}.svg" alt="Arpeggios" draggable="false" />
+</div>
+
+<!-- Diminished seventh chords (blocked) -->
+<!-- Divider -->
+<div id="divider" style="background-color: #29CC96;"></div> <!-- 160 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Diminished seventh chords (blocked) -->
+	<span class="colorDark">Diminished seventh chords (blocked)</span>
+  <img id="scaleImage" ng-src="scales/minor/diminished seventh chords (blocked)/{{noteName}}.svg" alt="Diminished seventh chords (blocked)" draggable="false" />
+</div>
+
+<!-- Diminished seventh chords (broken) -->
+<!-- Divider -->
+<div id="divider" style="background-color: #29CCCC;"></div> <!-- 180 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Diminished seventh chords (broken) -->
+	<span class="colorDark">Diminished seventh chords (broken)</span>
+  <img id="scaleImage" ng-src="scales/minor/diminished seventh chords (broken)/{{noteName}}.svg" alt="Diminished seventh chords (broken)" draggable="false" />
+</div>
+
+<!-- Diminished seventh arpeggios -->
+<!-- Divider -->
+<div id="divider" style="background-color: #299ACC;"></div> <!-- 200 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Diminished seventh arpeggios -->
+	<span class="colorDark">Diminished seventh arpeggios</span>
+  <img id="scaleImage" ng-src="scales/minor/diminished seventh arpeggios/{{noteName}}.svg" alt="Diminished seventh arpeggios" draggable="false" />
+</div>
+
+<!-- Minor pentatonic scale | Similar motion in octaves -->
+<!-- Divider -->
+<div id="divider" style="background-color: #2964CC;"></div> <!-- 220 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Minor pentatonic scale | Similar motion in octaves -->
+	<span class="colorDark">Minor pentatonic scale | Similar motion in octaves</span>
+	<img id="scaleImage" ng-src="scales/pentatonic/minor pentatonic - similar motion in octaves/{{noteName}}.svg" alt="Minor pentatonic scale | Similar motion in octaves" draggable="false" />
+</div>
+
+<!-- Harmonic minor | Cadance -->
+<!-- Divider -->
+<div id="divider" style="background-color: #2929CC;"></div> <!-- 240 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Harmonic minor | Cadance -->
+	<span class="colorDark">Harmonic minor | Cadance</span>
+  <img id="scaleImage" ng-src="scales/minor/harmonic minor - cadence/{{noteName}}.svg" alt="Harmonic minor | Cadance" draggable="false" />
+</div>
+
+<!-- Final divider -->
+<div id="divider" style="background-color: #5C29CC; margin-bottom: 10pt;"></div> <!-- 260 -->

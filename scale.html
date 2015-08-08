@@ -1,0 +1,250 @@
+<!doctype html>
+
+<!--
+  ScaleBook
+  scale.html
+  v1.0.0
+  Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+
+
+<html ng-app="scaleApp" ng-controller="scaleController">
+
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="description" content="ScaleBook is a musical scale resource by Leland Jansen. Don't let scales give you trouble.">
+		<meta name="author" content="Leland Jansen">
+
+		<!-- Typekit -->
+		<script type="text/javascript" src="//use.typekit.net/owf1riu.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+		<!-- Style -->
+		<link rel="stylesheet" type="text/css" href="style.css" />
+
+		<!-- AngularJS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-sanitize.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-cookies.min.js"></script>
+
+		<!-- AngularJS Controller -->
+		<script src="ScaleBookAngular.min.js"></script>
+
+		<!-- JavaScript -->
+		<script src="ScaleBook.min.js"></script>
+
+		<!-- Page title bound using AngularJS to note name and scale name -->
+		<title>ScaleBook | {{noteName}} {{scale}}</title>
+
+		<script type="text/javascript">
+			console.log("Hello there!");
+		</script>
+
+	</head>
+
+	<body>
+
+		<!-- Wrap and main divs (part of sticky footer) -->
+		<div id="wrap">
+			<div id="scaleMain">
+
+				<!-- Page header -->
+
+				<!-- Top color bar (ScaleBook blue color) -->
+				<div id="divider" style="background-color: #3069BF; opacity: 1; margin-top: 0;"></div>
+
+				<!-- Add side margins with "scaleContent" div styling -->
+				<div id="scaleContent">
+
+					<!-- Header (table of three columns) -->
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+						<!-- Vertically align table text to top -->
+						<tbody valign="top">
+							<tr>
+								<!-- Search field and interpretation -->
+								<td align="left" width="49%" class="colorMedium">
+
+									<!-- Mini search form -->
+									<form
+										name="miniSearchForm"
+									  ng-submit="submit(miniSearchField)"
+									>
+
+										<!-- Search field and submit button -->
+										<input
+											type="submit"
+											title="Search"
+											id="miniSearchButton"
+											value=""
+										  ng-disabled="miniSearchForm.miniSearchField.$invalid"
+										> | <input
+											type="text"
+											name="miniSearchField"
+											id="miniSearchField"
+											ng-model="miniSearchField"
+											ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 350, 'blur': 0 } }"
+											ng-minlength="1"
+											ng-maxlength="100"
+											required
+											autocomplete="off"
+											autocorrect="off"
+											autocapitalize="off"
+											spellcheck="false"
+											placeholder="Search"
+										>
+									</form>
+
+									<!-- Interpretation -->
+									<!-- Hide interpretation if mini search field is pristine or the text entered exceeds the maximum allowed length -->
+									<span ng-hide="miniSearchForm.miniSearchField.$pristine || miniSearchForm.miniSearchField.$error.maxlength">
+										<span class="italics">
+											<span class="colorMedium">
+												<!-- Bound using AngularJS to miniSearchField text
+														 miniSearchField text is run through parseUserInput function using "interpreter" filter (outputs HTML)
+														 Output is then treated as HTML markup -->
+												<span ng-bind-html="miniSearchField | interpreter | trustAsHTML">
+													{{miniSearchField | interpreter | trustAsHTML}}
+												</span>
+											</span>
+										</span>
+									</span>
+
+									<!-- Error text if input exceeds maximum allowed length -->
+									<!-- Show if the text entered has exceeded the maximum allowed length -->
+									<span ng-show="miniSearchForm.miniSearchField.$error.maxlength">
+										<span class="italics">
+											<span class="colorRed">
+												Input too long.
+											</span>
+										</span>
+									</span>
+
+					      </td>
+
+								<!-- Scale name -->
+								<td align="center" width="2%" style="white-space:nowrap; font-size: 35pt;" class="colorDark">
+
+								  <!-- If scale is major or minor -->
+								  <span
+								    ng-show="
+								      scale === 'major'				||
+								      scale === 'minor'
+								  ">
+								    <!-- [Note] [major/minor] -->
+										<!-- Bound using AngularJS to noteName specified in URL param
+												 The noteName is formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+												 Output is then treated as HTML markup -->
+										<span ng-bind-html="noteName | textStyle | trustAsHTML">
+								      {{noteName | textStyle | trustAsHTML}}
+								    </span>
+										<!-- Bound using AngularJS to scale specified in URL hash -->
+										{{scale}}
+								  </span>
+
+								  <!-- If scale is a mode -->
+								  <span
+								    ng-show="
+								      scale === 'ionian' 			||
+								      scale === 'dorian' 			||
+								      scale === 'phrygian'		||
+								      scale === 'lydian' 			||
+								      scale === 'mixolydian'	||
+								      scale === 'aeolian'			||
+								      scale === 'locrian'
+								  ">
+										<!-- [Mode] mode on [note] -->
+										<!-- Bound using AngularJS to scale specified in URL hash
+												 The first letter of sclale is capitalized using "capitalizeFirstLetter" filter (outputs HTML) -->
+										<span ng-bind-html="scale | capitalizeFirstLetter">
+											{{scale | capitalizeFirstLetter}}
+										</span>
+										mode on
+										<!-- Bound using AngularJS to noteName specified in URL param
+												 The noteName is formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+												 Output is then treated as HTML markup -->
+										<span ng-bind-html="noteName | textStyle | trustAsHTML">
+											{{noteName | textStyle | trustAsHTML}}
+								    </span>
+								  </span>
+
+								  <!-- If scale is not major, minor, or a mode -->
+								  <span
+								    ng-show="
+								      scale !== 'major'				&&
+								      scale !== 'minor'				&&
+								      scale !== 'ionian' 			&&
+								      scale !== 'dorian' 			&&
+								      scale !== 'phrygian'		&&
+								      scale !== 'lydian' 			&&
+								      scale !== 'mixolydian'	&&
+								      scale !== 'aeolian'			&&
+								      scale !== 'locrian'
+								  ">
+										<!-- [Scale] scale on [note] -->
+										<!-- Bound using AngularJS to scale specified in URL hash
+												 The first letter of sclale is capitalized using "capitalizeFirstLetter" filter (outputs HTML)
+												 Output is then treated as HTML markup -->
+										<span ng-bind-html="scale | capitalizeFirstLetter | trustAsHTML">
+											{{scale | capitalizeFirstLetter | trustAsHTML}}
+										</span>
+										scale built on
+										<!-- Bound using AngularJS to noteName specified in URL param
+												 The noteName is formatted to a music stype (i.e. "-sharp" to "#") (outputs HTML)
+												 Output is then treated as HTML markup -->
+										<span ng-bind-html="noteName | textStyle | trustAsHTML">
+											{{noteName | textStyle | trustAsHTML}}
+										</span>
+								  </span>
+
+								</td>
+
+								<!-- ScaleBook text -->
+					      <td align="right" width="49%" class="colorMedium">
+									<a ng-click="reset()" href="../#/" target="_self">ScaleBook</a>
+								</td>
+
+							</tr>
+					  </tbody>
+					</table>
+
+				</div> <!-- End of "scaleContent" -->
+
+
+				<!-- Scale content -->
+				<div ng-view></div>
+
+			</div> <!-- End of "scaleMain" div -->
+		</div> <!-- End of "wrap" div -->
+
+
+		<!-- Footer (table of two columns) -->
+		<!-- Add side margins with "scaleContent" div -->
+		<div id="scaleFooter">
+			<div id="scaleContent">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+					<tbody class="colorMedium">
+						<tr>
+							<!-- Copyright -->
+							<td align="left">
+				      	Copyright &copy; <a href="http://www.lelandjansen.com/" target="_blank">Leland Jansen</a> 2015
+				      </td>
+				      <!-- Error report and about links -->
+							<td align="right">
+				      	<a href="https://github.com/lelandjansen/ScaleBook/issues" target="_blank">Report an error</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.lelandjansen.com/project/scalebook" target="_blank">About ScaleBook</a>
+							</td>
+						</tr>
+				  </tbody>
+				</table>
+			</div>
+
+
+			<!-- Bottom color bar -->
+			<div id="divider" style="background-color: #3069BF; opacity: 1; margin-top: 11pt; margin-bottom: 0;"></div> <!-- ScaleBook blue color -->
+
+		</div>
+
+	</body>
+</html>

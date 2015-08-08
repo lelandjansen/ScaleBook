@@ -282,7 +282,7 @@ Subtracting the two arrays gives:
 
 0, 1, 1, 0, 0, 1, 1
 
-Therefore, the notes of E major are:
+Therefore, the notes of [E major](http://www.scalebook.org/scale?/E/#/major) are:
 
 E, F-sharp, G-sharp, A, B, C-sharp, and D-sharp
 
@@ -396,6 +396,7 @@ Using the concepts of relative scales and the *Circle of Fifths*, one can determ
 
 #### modeConversion array
 The modeConversion array details the number of semitones by which a note must be lowered to arrive at its relative major.
+
 ```javascript
 // List of semitones between scale and relative major
 var modeConversion = [
@@ -411,6 +412,7 @@ var modeConversion = [
 
 #### determineNote
 The starting note of a scale can be determined if the scale type and key signature are specified.
+
 ```javascript
 // Find note given scale and key signature
 function determineNote(scale, keySignature) {
@@ -440,6 +442,7 @@ function determineNote(scale, keySignature) {
 
 #### determineScale
 The scale type can be determined if the starting note and key signature are specified.
+
 ```javascript
 // Find scale type given a starting note and key signature
 function determineScale(note, keySignature) {
@@ -474,6 +477,7 @@ function determineScale(note, keySignature) {
 
 #### determineKeySignature
 The key signature of a scale can be determined if the starting note and scale type are specified.
+
 ```javascript
 // Find the key signature given a starting note and scale
 function determineKeySignature(note, scale) {
@@ -607,6 +611,7 @@ function determineKeySignature(note, scale) {
 
 #### checkInput
 If given the starting note, scale type, and key signature, one can determine if the three parameters agree.
+
 ```javascript
 // Check if given scale on given note has given key signature
 function checkInput(note, scale, keySignature) {

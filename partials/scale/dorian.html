@@ -1,0 +1,80 @@
+<!doctype html>
+
+<!--
+  ScaleBook
+  dorian.html
+  v1.0.0
+  Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+<!-- Similar motion in octaves -->
+<div id="divider" style="background-color: #2964CC;"></div> <!-- 220 -->
+<div id="scaleContent">
+	<span class="colorDark">Similar motion in octaves</span>
+  <img id="scaleImage" ng-src="scales/dorian/similar motion in octaves/{{noteName}}.svg" alt="Similar motion in octaves" draggable="false" />
+</div>
+
+<!-- Info -->
+<div id="divider" style="background-color: #2929CC;"></div> <!-- 240 -->
+<div id="scaleContent">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="line-height: 21pt;">
+		<tbody valign="top">
+			<tr>
+				<td align="left">
+	      	<span class="colorMedium">Scale</span><br/>
+          Dorian mode built on <span ng-bind-html="noteName | textStyle | trustAsHTML">{{noteName | textStyle | trustAsHTML}}</span><br/>
+          <br/>
+          <span class="colorMedium">Notes</span><br/>
+
+					<span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][1] | textStyle | trustAsHTML">{{scaleArray[3][1] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][3] | textStyle | trustAsHTML">{{scaleArray[3][3] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][4] | textStyle | trustAsHTML">{{scaleArray[3][4] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][5] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span>
+					|
+					<span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span>
+					|
+					(<span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][0] | textStyle | trustAsHTML}}</span>)<br/>
+					<br/>
+
+          <span class="colorMedium">Semitone pattern</span><br/>
+          2 | 1 | 2 | 2 | 2 | 1 | 2<br/>
+	      </td>
+				<td align="left">
+	      	<span class="colorMedium">Key signature</span><br/>
+      		<span ng-bind-html="keySignature | textStyle | trustAsHTML">{{keySignature | textStyle | trustAsHTML}}</span><br/>
+          <br/>
+          <span class="colorMedium">Relative major</span><br/>
+          <a ng-href="?/{{scaleArray[3][6]}}/#/major">Major scale built on <span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span></a><br/>
+          <br/>
+          <span class="colorMedium">Enharmonic equivalent</span><br/>
+        	<span ng-hide="enharmonicNoteName === 'None'">
+						<a ng-href="?/{{enharmonicNoteName}}/#/Dorian">Dorian mode built on <span ng-bind-html="enharmonicNoteName | textStyle | trustAsHTML">{{enharmonicNoteName | textStyle | trustAsHTML}}</span></a><br/>
+					</span>
+					<span ng-show="enharmonicNoteName === 'None'">
+						None<br/>
+					</span>
+	      </td>
+	      <td align="left">
+	      	<span class="colorMedium">Related modes</span><br/>
+					<a ng-href="?/{{scaleArray[3][6]}}/#/ionian">Ionian mode on <span ng-bind-html="scaleArray[3][6] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][0]}}/#/dorian">Dorian mode on <span ng-bind-html="scaleArray[3][0] | textStyle | trustAsHTML">{{scaleArray[3][1] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][1]}}/#/phrygian">Phrygian mode on <span ng-bind-html="scaleArray[3][1] | textStyle | trustAsHTML">{{scaleArray[3][2] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][2]}}/#/lydian">Lydian mode on <span ng-bind-html="scaleArray[3][2] | textStyle | trustAsHTML">{{scaleArray[3][3] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][3]}}/#/mixolydian">Mixolydian mode on <span ng-bind-html="scaleArray[3][3] | textStyle | trustAsHTML">{{scaleArray[3][4] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][4]}}/#/aeolian">Aeolian mode on <span ng-bind-html="scaleArray[3][4] | textStyle | trustAsHTML">{{scaleArray[3][5] | textStyle | trustAsHTML}}</span></a><br/>
+					<a ng-href="?/{{scaleArray[3][5]}}/#/locrian">Locrian mode on <span ng-bind-html="scaleArray[3][5] | textStyle | trustAsHTML">{{scaleArray[3][6] | textStyle | trustAsHTML}}</span></a><br/>
+				</td>
+			</tr>
+	  </tbody>
+	</table>
+</div>
+
+<!-- Final divider -->
+<div id="divider" style="background-color: #5C29CC; margin-bottom: 10pt;"></div> <!-- 260 -->
