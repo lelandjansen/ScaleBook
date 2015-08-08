@@ -1,29 +1,30 @@
 # ScaleBook
 Musical scale resource website by Leland Jansen. From the initial sketches to the code thus far, everything has been created independently and coded from scratch.
+
 ![ScaleBook home](ScaleBook_home.jpg)
 
 ## Contents
-- Natural language processing
-  - Some things you can ask ScaleBook
-- Introduction and music theory
-  - Piano Keyboard
-  - Enharmonics
-  - Semitones
-  - Scales
-  - Key signatures
-  - Relative scales
-  - Circle of Fifths
-- Algorithms
-  - scaleScore array
-  - writeScale
-  - Determine note, scale, or key signature
-    - modeConversion array
-    - determineNote
-    - determineScale
-    - determineKeySignature
-    - checkInput
-  - parseUserInput
-- Attributions
+- [Natural language processing](#natural-language-processing)
+  - [Some things you can ask ScaleBook](https://github.com/lelandjansen/ScaleBook#some-things-you-can-ask-scalebook)
+- [Introduction and music theory](#enharmonics)
+  - [Piano Keyboard](#piano-keyboard)
+  - [Enharmonics](#enharmonics)
+  - [Semitones](#semitones)
+  - [Scales](#scales)
+  - [Key signatures](#key-signatures)
+  - [Relative scales](#relative-scales)
+  - [Circle of Fifths](#circle-of-fifths)
+- [Algorithms](#algorithms)
+  - [scaleScore array](#scalescore-array)
+  - [generateScale](#generatescale)
+  - [Determine note, scale, and key signature](#determine-note-scale-and-key-signature)
+    - [modeConversion array](#modeconversion-array)
+    - [determineNote](#determinenote)
+    - [determineScale](#determinescale)
+    - [determineKeySignature](#determinekeysignature)
+    - [checkInput](#checkinput)
+  - [parseUserInput](#parseuserinput)
+- [Attributions](#attributions)
 
 
 
@@ -121,7 +122,7 @@ ScaleBook knows the following scales:
 - Pentatonic (part of major)
 - Whole tone
 
-Songs and other musical compositions are usually built upon a scale, meaning the notes in that piece are based on the pitches given by the scale's semitone pattern. Thus, a piece can start on any note and still sound similar. For example, Twinkle_Twinkle_Little_Star is based on the major scale. In [C major](http://www.scalebook.org/scale?/C/#/major), the first seven notes are:
+Songs and other musical compositions are usually built upon a scale, meaning the notes in that piece are based on the pitches given by the scale's semitone pattern. Thus, a piece can start on any note and still sound similar. For example, *Twinkle Twinkle Little Star* is based on the major scale. In [C major](http://www.scalebook.org/scale?/C/#/major), the first seven notes are:
 
 C | C | G | G | A | A | G
 
@@ -173,7 +174,7 @@ For example, to find the relative minor of [E-flat major](http://www.scalebook.o
 
 
 #### Circle of Fifths
-To determine a major scale's key signature, one can use the Circle_of_Fifths. Below are the steps required to do so:
+To determine a major scale's key signature, one can use the *Circle of Fifths*. Below are the steps required to do so:
 
 1. Start on the note C,
 2. Go up seven semitones,
@@ -210,7 +211,8 @@ ScaleBook assigns each note a number as outlined in the table below:
 Additionally, key signatures are treated as numbers (positive for sharp, negative for flat).
 
 #### scaleScore array
-The scaleScore array is used to determine what information has been provided by the user, namely the scale type, note name, and accidental. Each time an occurrence of the item_ is found, that element's value_ is added to the total_. The total can then be used to determine more easily what information has been provided.
+The scaleScore array is used to determine what information has been provided by the user, namely the scale type, note name, and accidental. Each time an occurrence of the *item* is found, that element's *value* is added to the *total*. The total can then be used to determine more easily what information has been provided.
+
 ```javascript
 // Scale Score table
 var scaleScore = [
@@ -263,7 +265,7 @@ To determine which enharmonic to use for the accidentals of seven-note scale:
 
 Using this method, scales without a standard key signature (e.g. G-sharp major) can also be written correctly by using double sharps and flats.
 
-For example, E major is represented by the number 4 and major scales follow the semitone pattern 2, 2, 1, 2, 2, 2, 1. The scale written as numbers is:
+For example, [E major](http://www.scalebook.org/scale?/E/#/major) is represented by the number 4 and major scales follow the semitone pattern 2, 2, 1, 2, 2, 2, 1. The scale written as numbers is:
 
 4, 6, 8, 9, 11, 13, 15
 
@@ -332,51 +334,45 @@ function generateScale(startNoteName, scalePattern) {
     scaleArray[0][i] = (scaleArray[0][i-1] + scalePattern[i-1])%12;
 	}
 
-  // Loop through each element of scalePattern
+  // Loop through the length of scalePattern
 	for (i = 0; i < scalePattern.length; i++) {
-		//
+		// Subtract the scale number from the white note number
     // Convert to base 12
     scaleArray[2][i] = (scaleArray[0][i] - scaleArray[1][i])%12;
-		//
-    // This is necessary due to numbers being in base 12
+		// If the subtraction results in 11 (this is necessary due to numbers being in base 12)
     if (scaleArray[2][i] === 11) {
-			//
+			// Change 11 to -1
       scaleArray[2][i] = -1;
 		}
 	}
 
-  //
-	for (i = 0; i < scaleArray[0].length; i++) {
-		//
-    scaleArray[0][i] = scaleArray[0][i];
-	}
-
-  //
+  // Initialize found variable (represents whether or not the whiteNote has been found)
 	var found;
-	//
+	// Loop through the length of the first element of scaleArray
   for (i = 0; i < scaleArray[0].length; i++) {
-		//
+		// Set found to false (the white note has not yet been found)
     found = false;
-		//
+		// Loop through the length of whiteNoteChart
     for (j = 0; j < whiteNoteChart.length; j++) {
-			//
+			// If the note number in the first element of scaleArray matches
+      // the number in the zeroth element of whiteNoteChart
       if (scaleArray[1][i] === whiteNoteChart[j][0]) {
-				//
+				// Set the third element of scaleArray to the name of that white note
         scaleArray[3][i] = whiteNoteChart[j][1];
-				//
+				// The whiteNote has been found
         found = true;
 			}
-			//
+			// If the second element of scaleArray is 1 (i.e. sharp)
       if (scaleArray[2][i] === 1) {
-				//
+				// Add "-sharp" to the end of the white note name in the third element of scaleArray
         scaleArray[3][i] += "-sharp";
 			}
-      //
+      // If the second element of scaleArray is -1 (i.e. flat)
 			else if (scaleArray[2][i] === -1) {
-				//
+				// Add "-sharp" to the end of the white note name in the third element of scaleArray
         scaleArray[3][i] += "-flat";
 			}
-      //
+      // If the whiteNote was found
 			if (found === true) {
 				// Break out of the loop
         break;
@@ -389,8 +385,8 @@ function generateScale(startNoteName, scalePattern) {
 } // End of generateScale
 ```
 
-### Determine note, scale, or key signature
-Using the concepts of relative scales and the Circle_of_Fifths, one can determine the starting note, scale type, or key signature of a particular scale scale given the other two pieces of information.
+### Determine note, scale, and key signature
+Using the concepts of relative scales and the *Circle of Fifths*, one can determine the starting note, scale type, or key signature of a particular scale scale given the other two pieces of information.
 
 #### modeConversion array
 The modeConversion array details the number of semitones by which a note must be lowered to arrive at its relative major.
@@ -625,7 +621,7 @@ function checkInput(note, scale, keySignature) {
 
 
 ### parseUserInput
-Below is an outline of the parseUserInput algorithm ScaleBook uses for Natural_Language_Processing.
+Below is an outline of the parseUserInput algorithm ScaleBook uses for *Natural Language Processing*.
 - String parsing
   - Collect user input from search field
   - Convert the string to lower case and remove/replace special characters
@@ -657,4 +653,4 @@ The complete parseUserInput function can be found in the file ScaleBook.js.
 
 
 ## Attributions
-Although this project was designed and coded independently, it was made possible by the numerous online resources available to me. I would like to thank those who shared their knowledge and expertise to make projects like these possible.
+Although ScaleBook was designed and coded independently, it was made possible by the numerous online resources available to me. I would like to thank those who shared their knowledge and expertise to make ScaleBook possible.
