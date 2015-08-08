@@ -1,0 +1,61 @@
+<!doctype html>
+
+<!--
+  ScaleBook
+  blues.html
+  v1.0.0
+  Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+
+
+<div id="divider" style="background-color: #2964CC;"></div> <!-- 220 -->
+
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+	<!-- Similar motion in octaves -->
+	<span class="colorDark">Similar motion in octaves</span>
+
+	<!-- If scale does not have "sharp" or "flat" in noteName, show both sharp and flat versions of scale.
+			 Otherwise, show either sharp or flat versions, depending on scale accidental -->
+  <img ng-hide="noteName.indexOf('flat') > -1" id="scaleImage" ng-src="scales/blues/similar motion in octaves/{{noteName}} (sharp).svg" alt="Similar motion in octaves (sharp)" draggable="false" />
+  <div ng-hide="noteName.indexOf('flat') > -1 && noteName.indexOf('sharp')" id="divider" style="background-color: #FFFFFF; opacity: 0; ; margin-top: 15pt; margin-bottom: 15pt;"></div> <!-- Spacer -->
+  <img ng-hide="noteName.indexOf('sharp') > -1" id="scaleImage" ng-src="scales/blues/similar motion in octaves/{{noteName}} (flat).svg" alt="Similar motion in octaves (flat)" draggable="false" />
+
+</div>
+
+<!-- Info -->
+<div id="divider" style="background-color: #2929CC;"></div> <!-- 240 -->
+<!-- Add side margins with "scaleContent" div styling -->
+<div id="scaleContent">
+  <!-- Scale information stored in table of three columns -->
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="line-height: 21pt;">
+		<!-- Vertically align all text to top -->
+		<tbody valign="top">
+			<tr>
+				<!-- Scale name -->
+				<td align="left">
+	      	<!-- Scale name -->
+					<span class="colorMedium">Scale</span><br/>
+          Blues scale built on <span ng-bind-html="noteName | textStyle | trustAsHTML">{{noteName | textStyle | trustAsHTML}}</span>
+	      </td>
+        <!-- Semitone pattern -->
+				<td align="left">
+          <!-- Semitone pattern -->
+					<span class="colorMedium">Semitone pattern</span><br/>
+          3 | 3 | 1 | 3 | 2
+				</td>
+				<!-- Key signature -->
+				<td align="left">
+	      	<!-- Key signature -->
+					<span class="colorMedium">Key signature</span><br/>
+      		<!-- Blues scales do not have a key signature -->
+					No key signature
+				</td>
+			</tr>
+	  </tbody>
+	</table>
+</div> <!-- End of "scaleContent" -->
+
+<!-- Final divider -->
+<div id="divider" style="background-color: #5C29CC; margin-bottom: 10pt;"></div> <!-- 260 -->

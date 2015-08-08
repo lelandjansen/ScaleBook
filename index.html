@@ -1,0 +1,208 @@
+<!doctype html>
+
+<!--
+	ScaleBook
+	index.html
+	v1.0.0
+	Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+
+
+<html>
+
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="description" content="ScaleBook is a musical scale resource by Leland Jansen. Don't let scales give you trouble.">
+		<meta name="author" content="Leland Jansen">
+
+		<!-- Typekit -->
+		<script type="text/javascript" src="//use.typekit.net/owf1riu.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+		<!-- Styles -->
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<style>
+			html, body
+			{
+				background-image: url("background.min.svg");
+				background-position: top;
+				background-repeat: repeat-x;
+				background-size: 3000pt;
+				background-color: #404040;
+			}
+		</style>
+
+		<!-- AngularJS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-sanitize.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-cookies.min.js"></script>
+
+		<!-- AngularJS Controller -->
+		<script src="ScaleBookAngular.min.js"></script>
+
+		<!-- JavaScript -->
+		<script src="ScaleBook.min.js"></script>
+
+		<title>ScaleBook</title>
+
+		<script type="text/javascript">
+			console.log("Hello there!");
+		</script>
+
+	</head>
+
+
+
+	<body>
+
+		<!-- Wrap and main divs (part of sticky footer) -->
+		<div id="wrap">
+			<div id="main">
+
+				<div id="searchBox">
+
+					<!-- Center all content inside searchBox -->
+					<center>
+
+						<!-- Search form -->
+						<form
+							ng-app="searchApp"
+							name="searchForm"
+						  ng-submit="submit(searchField)"
+						  ng-controller="searchController"
+						>
+
+							<!-- ScaleBook Logo -->
+							<!-- Clicking logo resets page -->
+							<img
+								src="logo.min.svg"
+							    id="logo"
+							    draggable="false"
+							    alt="ScaleBook by Leland Jansen"
+							    title="ScaleBook by Leland Jansen"
+							    ng-click="reset()"
+							/>
+
+							<!-- Input field and submit button -->
+							<input
+								type="text"
+								name="searchField"
+								id="searchField"
+								ng-model="searchField"
+								ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 350, 'blur': 0 } }"
+								ng-minlength="1"
+								ng-maxlength="100"
+								required
+								autofocus
+								autocomplete="off"
+								autocorrect="off"
+								autocapitalize="off"
+								spellcheck="false"
+								ng-change="main()"
+							><input
+								type="submit"
+								title="Search"
+								id="searchButton"
+								value=""
+							  ng-disabled="searchForm.searchField.$invalid"
+							>
+							<br/>
+
+							<!-- 20pt spacer -->
+							<div style="height: 20pt;"></div>
+
+							<!-- Set the font size of all text inside span to 15pt -->
+							<span style="font-size: 15pt">
+
+								<!-- Add invisible treble clefs so all text vertically aligned -->
+								<span class="musicText2" style="color: #FFFFFF; opacity: 0;" >&amp;</span>
+
+								<!-- Don't let scales give you trouble -->
+								<span title="Don't let scales give you trouble">
+									<!-- Show if searchForm is pristine and the hash is "#/" -->
+									<span ng-show="searchForm.searchField.$pristine && hashValue === '#/'">
+										<span class="colorMedium">
+											<span class="italics">
+												Don't let scales give you
+											</span>
+											<!-- Treble clef -->
+											<span class="musicText2">&amp;</span>
+										</span>
+									</span>
+								</span>
+
+								<!-- Interpretation -->
+								<!-- Hide if searchForm is pristine or the text entered has exceeded the maximum allowed length -->
+								<span ng-hide="(searchForm.searchField.$pristine && hashValue === '#/') || searchForm.searchField.$error.maxlength">
+									<span class="italics">
+										<span class="colorMedium">
+											<!-- Bound using AngularJS to searchField text
+													 searchField text is run through parseUserInput function using "interpreter" filter (outputs HTML)
+													 Output is then treated as HTML markup -->
+											<span ng-bind-html="searchField | interpreter | trustAsHTML">
+												{{searchField | interpreter | trustAsHTML}}
+											</span>
+										</span>
+									</span>
+								</span>
+
+								<!-- Error text if input exceeds maximum allowed length -->
+								<!-- Show if the text entered has exceeded the maximum allowed length -->
+								<span ng-show="searchForm.searchField.$error.maxlength">
+									<span class="italics">
+										<span class="colorRed">
+											Input too long.
+										</span>
+									</span>
+								</span>
+
+								<!-- Add invisible treble clefs so all text vertically aligned -->
+								<span class="musicText2" style="color: #FFFFFF; opacity: 0;" >&amp;</span>
+
+							</span> <!-- End of font size span -->
+							<br/>
+
+							<!-- Answer/Error page  -->
+							<!-- Hide if hash is "answer" and searchField is pristine, or the text entered exceeds the maximum allowed length, or the searchField is invalid -->
+							<span ng-hide="($location.hash() === 'answer' && (searchForm.searchField.$pristine || searchForm.searchField.$error.maxlength || searchForm.searchField.$invalid))">
+								<div id="answer">
+									<div ng-view></div>
+								</div>
+							</span>
+
+						</form>
+						<br/>
+
+					</center>
+				</div> <!-- End of "searchBox" div -->
+			</div> <!-- End of "main" div -->
+		</div> <!-- End of "wrap" div -->
+
+
+
+		<!-- Footer (table of two columns) -->
+		<div id="footer">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+				<tbody class="colorWhite">
+					<tr>
+						<!-- Copyright -->
+						<td align="left">
+			      	Copyright &copy; <a href="http://www.lelandjansen.com/" target="_blank">Leland Jansen</a> 2015
+			      </td>
+			      <!-- Error report and about links -->
+						<td align="right">
+			      	<a href="https://github.com/lelandjansen/ScaleBook/issues" target="_blank">Report an error</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.lelandjansen.com/project/scalebook" target="_blank">About ScaleBook</a>
+							<!-- <a href="#/error">Report an error</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.lelandjansen.com/project/scalebook" target="_blank">About ScaleBook</a> -->
+						</td>
+					</tr>
+			  </tbody>
+			</table>
+		</div>
+
+
+	</body>
+
+</html>

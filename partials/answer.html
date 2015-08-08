@@ -1,0 +1,20 @@
+<!doctype html>
+
+<!--
+  ScaleBook
+  answer.html
+  v1.0.0
+  Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+
+<span style="font-size: 15pt">
+  <span class="colorDark">
+    <!-- Bound using AngularJS to searchField text
+         searchField text is run through parseUserInput function using "answer" filter (outputs HTML)
+         Output is then treated as HTML markup -->
+    <span ng-bind-html="searchField | answer | trustAsHTML">
+      {{searchField | answer | trustAsHTML}}
+    </span>
+  </span>
+</span>
