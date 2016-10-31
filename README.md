@@ -3,6 +3,9 @@
 
 Musical scale resource website by Leland Jansen. From the initial sketches to the code thus far, everything has been created independently and coded from scratch.
 
+### Code quality disclaimer
+I created ScaleBook as a "learn to code" project (at a time when the only data structure I knew was an array). I'm proud of the ScaleBook's outcome but think it's worth mentioning that the code quality is not a reflection of my current ability.
+
 ![ScaleBook home](ScaleBook_home.jpg)
 
 ## Contents
