@@ -1,4 +1,6 @@
 # ScaleBook
+[![Analytics](https://ga-beacon.appspot.com/UA-46915227-3/ScaleBook)](https://github.com/igrigorik/ga-beacon)
+
 Musical scale resource website by Leland Jansen. From the initial sketches to the code thus far, everything has been created independently and coded from scratch.
 
 ![ScaleBook home](ScaleBook_home.jpg)
