@@ -3,7 +3,7 @@
 <!--
 	ScaleBook
 	index.html
-	v1.0.0
+	v1.0.1
 	Copyright (c) Leland Jansen 2015. All rights reserved.
 -->
 
@@ -92,7 +92,7 @@
 								name="searchField"
 								id="searchField"
 								ng-model="searchField"
-								ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 350, 'blur': 0 } }"
+								ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 0, 'blur': 0 } }"
 								ng-minlength="1"
 								ng-maxlength="100"
 								required
@@ -109,6 +109,7 @@
 								value=""
 							  ng-disabled="searchForm.searchField.$invalid"
 							>
+							<!-- Original: 350 -->
 							<br/>
 
 							<!-- 20pt spacer -->
@@ -190,7 +191,7 @@
 					<tr>
 						<!-- Copyright -->
 						<td align="left">
-			      	Copyright &copy; <a href="http://www.lelandjansen.com/" target="_blank">Leland Jansen</a> 2015
+			      	Copyright &copy; <a href="http://www.lelandjansen.com/" target="_blank">Leland Jansen</a> 2016
 			      </td>
 			      <!-- Error report and about links -->
 						<td align="right">

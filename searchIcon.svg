@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	ScaleBook
+	Copyright (c) Leland Jansen 2015. All rights reserved.
+-->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 18.5 18.2" enable-background="new 0 0 18.5 18.2" xml:space="preserve">
+<g>
+	<path fill="#FFFFFF" d="M11.5,14c-3.9,0-7-3.1-7-7c0-3.9,3.1-7,7-7s7,3.1,7,7C18.5,10.9,15.3,14,11.5,14z M11.5,2c-2.8,0-5,2.2-5,5
+		s2.2,5,5,5s5-2.2,5-5S14.2,2,11.5,2z"/>
+	<rect x="3.2" y="9.1" transform="matrix(0.7071 0.7071 -0.7071 0.7071 11.1317 1.1257)" fill="#FFFFFF" width="2" height="9.9"/>
+</g>
+</svg>
